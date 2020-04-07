@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot rpa="false" generated="20200407 15:52:18.899" generator="Robot 3.1.2 (Python 2.7.16 on darwin)">
+<suite source="/Users/richardmuia/Documents/Robot scripts/explore-libraries/tests/api_tests.robot" id="s1" name="Api Tests">
+<test id="s1-t1" name="Make a simple REST API call">
+<kw name="Check Github Username" library="Github">
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>session</arg>
+<arg>${Base_URL}</arg>
+<arg>disable_warnings=1</arg>
+</arguments>
+<msg timestamp="20200407 15:52:19.348" level="INFO">Creating Session using : alias=session, url=https://api.paystack.co, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" endtime="20200407 15:52:19.348" starttime="20200407 15:52:19.347"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>Content-Type=application/json; charset=utf-8</arg>
+<arg>Authorization=Bearer sk_test_10f8d54867cc448e852fcdc2e346e9dc786aeda3</arg>
+</arguments>
+<assign>
+<var>&amp;{headers}</var>
+</assign>
+<msg timestamp="20200407 15:52:19.349" level="INFO">&amp;{headers} = { Content-Type=application/json; charset=utf-8 | Authorization=Bearer sk_test_10f8d54867cc448e852fcdc2e346e9dc786aeda3 }</msg>
+<status status="PASS" endtime="20200407 15:52:19.349" starttime="20200407 15:52:19.349"></status>
+</kw>
+<kw name="Get Binary File" library="OperatingSystem">
+<doc>Returns the contents of a specified file.</doc>
+<arguments>
+<arg>${json_path}json.json</arg>
+</arguments>
+<assign>
+<var>${json}</var>
+</assign>
+<msg timestamp="20200407 15:52:19.350" html="yes" level="INFO">Getting file '&lt;a href="file:///Users/richardmuia/Documents/json.json"&gt;/Users/richardmuia/Documents/json.json&lt;/a&gt;'.</msg>
+<msg timestamp="20200407 15:52:19.350" level="INFO">${json} = {
+  "email": "nrichardmuia@gmail.com",
+  "amount": "5000",
+  "reference": "test8",
+  "currency": "NGN",
+  "callback_url": "http://mandlatech.co.ke/",
+   "metadata": {
+  	"cancel_action": "http://mandl...</msg>
+<status status="PASS" endtime="20200407 15:52:19.351" starttime="20200407 15:52:19.350"></status>
+</kw>
+<kw name="Post Request" library="RequestsLibrary">
+<doc>Send a POST request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>session</arg>
+<arg>/transaction/initialize</arg>
+<arg>data=${json}</arg>
+<arg>headers=${headers}</arg>
+</arguments>
+<assign>
+<var>${resp}</var>
+</assign>
+<msg timestamp="20200407 15:52:19.352" level="INFO">POST Request using : uri=/transaction/initialize, files=None, params=None, timeout=None, allow_redirects=True
+headers={'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'User-Agent': 'python-requests/2.23.0', 'Connection': 'keep-alive', u'Content-Type': u'application/json; charset=utf-8', u'Authorization': u'Bearer sk_test_10f8d54867cc448e852fcdc2e346e9dc786aeda3'} 
+data={
+  "email": "nrichardmuia@gmail.com",
+  "amount": "5000",
+  "reference": "test8",
+  "currency": "NGN",
+  "callback_url": "http://mandlatech.co.ke/",
+   "metadata": {
+  	"cancel_action": "http://mandlatech.co.ke/"
+  }
+} 
+json=None</msg>
+<msg timestamp="20200407 15:52:21.793" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<status status="PASS" endtime="20200407 15:52:21.793" starttime="20200407 15:52:19.351"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${resp.status_code}</arg>
+<arg>200</arg>
+</arguments>
+<msg timestamp="20200407 15:52:21.794" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" endtime="20200407 15:52:21.794" starttime="20200407 15:52:21.793"></status>
+</kw>
+<status status="PASS" endtime="20200407 15:52:21.794" starttime="20200407 15:52:19.346"></status>
+</kw>
+<tags>
+<tag>API</tag>
+</tags>
+<status status="PASS" endtime="20200407 15:52:21.795" critical="yes" starttime="20200407 15:52:19.345"></status>
+</test>
+<doc>These are some API tests</doc>
+<status status="PASS" endtime="20200407 15:52:21.796" starttime="20200407 15:52:18.902"></status>
+</suite>
+<statistics>
+<total>
+<stat fail="0" pass="1">Critical Tests</stat>
+<stat fail="0" pass="1">All Tests</stat>
+</total>
+<tag>
+<stat fail="0" pass="1">API</stat>
+</tag>
+<suite>
+<stat fail="0" id="s1" name="Api Tests" pass="1">Api Tests</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
